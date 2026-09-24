@@ -87,6 +87,34 @@ public:
 
 int Container::containerCount = 0;
 
+class Stack : public Container {
+private:
+    int top;
+
+public:
+    Stack() : Container() {
+        top = -1;
+    }
+
+    void push(int value) {
+        if (isFull()) {
+            std::cout << "Error: Stack full\n";
+            return;
+        }
+        data[++top] = value;
+        count++;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            std::cout << "Error: Stack empty\n";
+            return -1;
+        }
+        count--;
+        return data[top--];
+    }
+};
+
 int main() {
     return 0;
 }
