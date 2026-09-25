@@ -1,12 +1,19 @@
 /*
- * Peso de los algoritmos (investigacion - Tarea 8)
- * La notacion O grande mide la cota superior del crecimiento del tiempo de ejecucion
- * o espacio a medida que crece el tamano de los datos (n).
- * Container::search: O(n) en el peor caso porque debe recorrer todo el arreglo secuencialmente
- * si el elemento esta en la ultima posicion o no se encuentra.
- * Container::sort: O(n^2) en el peor caso porque Bubble Sort realiza comparaciones anidadas
- * alcanzando aproximadamente n*(n-1)/2 operaciones cuando los datos estan invertidos.
- * Fuente: GeeksforGeeks (Data Structures and Algorithms) / Introduction to Algorithms (CLRS).
+ * Tarea 8 - Analisis de complejidad algoritmica (Big O):
+ *
+ * La notacion O grande nos permite medir el limite superior del crecimiento en tiempo o espacio
+ * de un algoritmo conforme aumenta la cantidad de datos (n).
+ *
+ * 1. Container::search - O(n):
+ * En el peor de los casos, la busqueda secuencial tiene que revisar cada uno de los elementos
+ * del arreglo si el valor buscado esta al final o si no existe del todo.
+ *
+ * 2. Container::sort - O(n^2):
+ * Al implementar Bubble Sort, se hacen comparaciones mediante dos ciclos anidados. Esto hace
+ * que el numero de operaciones crezca de forma cuadratica (aprox. n*(n-1)/2 comparaciones cuando
+ * los datos estan en orden inverso).
+ *
+ * Referencias: GeeksforGeeks / Introduction to Algorithms (CLRS).
  */
 
 #include <iostream>
@@ -15,8 +22,8 @@ const int CAPACITY = 100;
 
 class Container {
 protected:
-    int data[CAPACITY];
-    int count;
+    int data[CAPACITY] = {};
+    int count = 0;
     static int containerCount;
 
 public:
@@ -112,6 +119,46 @@ public:
         }
         count--;
         return data[top--];
+    }
+};
+
+/*
+ * Explicacion Tarea 7:
+ * En esta estructura lineal, cuando sacamos elementos de la cola (dequeue), los espacios antes
+ * del indice 'front' quedan desaprovechados porque no se vuelven a ocupar. Esto provoca que 'back'
+ * llegue al final del arreglo (CAPACITY - 1) y marque la cola como llena, aunque en realidad
+ * queden pocos elementos almacenados.
+ *
+ * Para resolver esto y reutilizar las posiciones libres, habria que convertirla en una cola
+ * circular apoyandonos en el operador modulo (%).
+ */
+class Queue : public Container {
+private:
+    int front;
+    int back;
+
+public:
+    Queue() : Container() {
+        front = 0;
+        back = -1;
+    }
+
+    void enqueue(int value) {
+        if (back == CAPACITY - 1) {
+            std::cout << "Error: Queue full\n";
+            return;
+        }
+        data[++back] = value;
+        count++;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            std::cout << "Error: Queue empty\n";
+            return -1;
+        }
+        count--;
+        return data[front++];
     }
 };
 
