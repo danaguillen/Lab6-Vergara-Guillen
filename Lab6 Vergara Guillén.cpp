@@ -162,6 +162,162 @@ public:
     }
 };
 
+class Matrix {
+private:
+    int cells[3][3];
+
+public:
+    Matrix() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                cells[i][j] = 0;
+            }
+        }
+    }
+
+    void setValue(int row, int col, int value) {
+        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+            cells[row][col] = value;
+        }
+    }
+
+    int getValue(int row, int col) const {
+        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+            return cells[row][col];
+        }
+        return 0;
+    }
+
+    int sum() const {
+        int total = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                total += cells[i][j];
+            }
+        }
+        return total;
+    }
+
+    int sumRow(int row) const {
+        if (row < 0 || row >= 3) return 0;
+        int total = 0;
+        for (int j = 0; j < 3; j++) {
+            total += cells[row][j];
+        }
+        return total;
+    }
+
+    void multiply(const Matrix& other, Matrix& result) const {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                int sumCell = 0;
+                for (int k = 0; k < 3; k++) {
+                    sumCell += cells[i][k] * other.cells[k][j];
+                }
+                result.setValue(i, j, sumCell);
+            }
+        }
+    }
+
+    void print() const {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                std::cout << cells[i][j] << " ";
+            }
+            std::cout << "\n";
+        }
+    }
+};
+
 int main() {
+    Stack stack;
+    Queue queue;
+    Matrix matA, matB, matResult;
+    int option = 0;
+
+    do {
+        std::cout << "\n1. Push Stack\n2. Pop Stack\n3. Enqueue Queue\n4. Dequeue Queue\n"
+            << "5. Search Stack\n6. Count Occurrences Stack\n7. Sort Copy Stack\n"
+            << "8. Print Structures\n9. Matrix Operations\n10. Multiply Matrices\n"
+            << "11. Container Count\n12. Exit\nOption: ";
+        if (!(std::cin >> option)) break;
+
+        switch (option) {
+        case 1: {
+            int val;
+            std::cin >> val;
+            stack.push(val);
+            break;
+        }
+        case 2:
+            std::cout << "Popped: " << stack.pop() << "\n";
+            break;
+        case 3: {
+            int val;
+            std::cin >> val;
+            queue.enqueue(val);
+            break;
+        }
+        case 4:
+            std::cout << "Dequeued: " << queue.dequeue() << "\n";
+            break;
+        case 5: {
+            int val;
+            std::cin >> val;
+            std::cout << "Index: " << stack.search(val) << "\n";
+            break;
+        }
+        case 6: {
+            int val;
+            std::cin >> val;
+            std::cout << "Occurrences: " << stack.countOccurrences(val) << "\n";
+            break;
+        }
+        case 7: {
+            Container sorted = stack;
+            sorted.sort();
+            std::cout << "Original: ";
+            stack.print();
+            std::cout << "Sorted copy: ";
+            sorted.print();
+            break;
+        }
+        case 8:
+            std::cout << "Stack: ";
+            stack.print();
+            std::cout << "Queue: ";
+            queue.print();
+            break;
+        case 9: {
+            int val = 1;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    matA.setValue(i, j, val++);
+                }
+            }
+            matA.print();
+            std::cout << "Sum: " << matA.sum() << "\n";
+            std::cout << "Sum Row 0: " << matA.sumRow(0) << "\n";
+            break;
+        }
+        case 10: {
+            matA.setValue(0, 0, 1); matA.setValue(0, 1, 2); matA.setValue(0, 2, 3);
+            matA.setValue(1, 0, 4); matA.setValue(1, 1, 5); matA.setValue(1, 2, 6);
+            matA.setValue(2, 0, 7); matA.setValue(2, 1, 8); matA.setValue(2, 2, 9);
+
+            matB.setValue(0, 0, 1); matB.setValue(0, 1, 0); matB.setValue(0, 2, 0);
+            matB.setValue(1, 0, 0); matB.setValue(1, 1, 1); matB.setValue(1, 2, 0);
+            matB.setValue(2, 0, 0); matB.setValue(2, 1, 0); matB.setValue(2, 2, 1);
+
+            matA.multiply(matB, matResult);
+            matResult.print();
+            break;
+        }
+        case 11:
+            std::cout << "Containers: " << Container::getContainerCount() << "\n";
+            break;
+        }
+    } while (option != 12);
+
     return 0;
 }

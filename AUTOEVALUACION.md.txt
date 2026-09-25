@@ -1,0 +1,15 @@
+ Requisito ¿Lo hicieron? (Sí / Parcial / No) Comentario 
+ 1 Repositorio privado, con ambos integrantes y nachoikari como colaboradores SI Repositorio privado creado con los accesos agregados.
+ 2 Commits de los dos integrantes, con mensajes descriptivos SI Se trabajó por ramas individuales con Pull Requests. 
+ 3 Clase Container con atributos no públicos y constructor SI Atributos protected (data y count) y constructor. 
+ 4 Miembro static con el contador de contenedores SI Atributo static containerCount inicializado correctamente. 
+ 5 search y countOccurrences como métodos SI Implementados como métodos miembros de Container. 
+ 6 sort como método, sin perder el orden de ingreso SI Método Bubble Sort verificado mediante copia por valor. 
+ 7 Clase Stack que hereda de Container, con validaciones SI Clase derivada con push y pop validados con isEmpty/isFull. 
+ 8 Clase Queue que hereda de Container, con validaciones SI Clase derivada con enqueue y dequeue validados. 9 Clase Matrix con sum, sumRow y multiply SI Matriz 3x3 
+ 9 Clase Matrix con sum, sumRow y multiply SI Matriz 3x3 funcional con sus operaciones requeridas. 
+ 10 Menú funcional en ciclo, operando sobre objetos SI Menú en main en ciclo do-while operando sobre objetos. 
+ 11 Comentario con la investigación del peso (Tarea 8) SI cumentado en el comentario de bloque inicial de lab6.cpp. 
+ 12 El programa compila y corre sin errores SI Verificado y probado sin errores. 
+ Después de implementar LIFO y FIFO como clases, ¿qué tan preparados/as se sienten para estudiar pilas,colas y listas enlazadas? 
+ Muy preparado/a 
